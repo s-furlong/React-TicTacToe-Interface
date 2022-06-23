@@ -1,7 +1,7 @@
 import React from 'react';
 import './board.css';
 
-const welcome = "Welcome to Tic Tac Toe"
+let welcome = "Welcome to Tic Tac Toe"
 
 type BoardProps = {message?: string}
 function Board(props: BoardProps) {
