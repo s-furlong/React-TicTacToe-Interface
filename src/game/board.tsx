@@ -1,10 +1,14 @@
 import React from 'react';
 import './board.css';
 
-function Board() {
+let welcome: string = "Welcome to Tic Tac Toe"
+
+type BoardProps = {message?: string}
+
+function Board(props: BoardProps) {
   return (
     <div className="App">
-      <h1 className="App-header">Welcome To Tic Tac Toe</h1>
+      <h1 className="App-header">{ props.message || welcome }</h1>
     </div>
   );
 }
