@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
-import {Cell} from '../components/cell';
+import {Cell} from './cell';
 
 describe('cell', () => {
     const mockOnClick = jest.fn();

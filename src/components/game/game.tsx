@@ -1,6 +1,6 @@
 import {useState} from 'react';
-import { Cell } from './cell'
-import './board.css';
+import { Cell } from '../cell/cell'
+import './game.css';
 
 const welcome = "Welcome to Tic Tac Toe"
 

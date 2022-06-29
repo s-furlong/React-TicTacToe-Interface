@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
-import Game from '../components/game';
+import Game from './game';
 
 describe("welcome message", () => {
   it('displays welcome to tic tic toe on screen', () => {
