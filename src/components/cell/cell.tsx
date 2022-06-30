@@ -1,13 +1,14 @@
 
 
 export type CellProps = {
+    id?: string
     value: string;
     onClick: () => void;
 }
 
 export const Cell = (props: CellProps) => {
     return(
-    <button data-testid="singleCell" style={style} onClick={props.onClick}>
+    <button id={props.id} data-testid="singleCell" style={style} onClick={props.onClick}>
         { props.value }
     </button>
     )   
