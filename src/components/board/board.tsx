@@ -8,7 +8,7 @@ type boardProps = {
 
 export const Board = (props: boardProps) => {
     const gameBoard = props.board || ["_","X","_","O","_","_","_","_","_"]
-    const [board, setBoard] = useState<Array<string>>(gameBoard)
+    const [board] = useState<Array<string>>(gameBoard)
     const [boardValue, setBoardValue] = useState<string | null>(null)
     
     const responseMessage = () => {
