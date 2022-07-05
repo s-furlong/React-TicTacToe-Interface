@@ -7,26 +7,24 @@ type boardProps = {
 }
 
 export const Board = (props: boardProps) => {
-    const gameBoard = props.board || ["_","X","_","O","_","_","_","_","_"]
-    const [board] = useState<Array<string>>(gameBoard)
-    const [boardValue, setBoardValue] = useState<string | null>(null)
+    const gameBoard = props.board || ["_","_","_","_","_","_","_","_","_"]
+
+    const [board, setBoard] = useState<Array<string>>(gameBoard)
+    const [playerTokenX, setPlayerTokenX] = useState(true);
     
-    const responseMessage = () => {
-        if (boardValue === null) {
-            return "Please select button"
-        } else {
-            return `${boardValue} has been clicked`
-        }
-    }
     
+    const changeCell = (i:number) => {
+        const updateBoard = [...board];
+        updateBoard[i] = playerTokenX ? "X" : "O";
+        setBoard(updateBoard);
+        setPlayerTokenX(!playerTokenX);
+    };
+
     return(
-    <div style={style} >
+    <div style={style} data-testid="game-board">
         {board.map((cellValue, i) => {
-            return <Cell id= {`cell_${i}`} key={i} value={cellValue} onClick={() => setBoardValue(cellValue)} />
+            return <Cell id= {`cell_${i}`} key={i} value={cellValue} onClick={() => changeCell(i)} data-testid="game-square"/>
         })}
-        <div>
-            {responseMessage()}
-        </div>
     </div>
     )   
 }

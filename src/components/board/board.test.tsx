@@ -3,32 +3,24 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import {Board} from '../board/board'
 
 describe('board', () => {
-    it('instructs user to make a selection if nothing has been clicked', async () => {
-      render(<Board />);
-      const linkElement = screen.getByText(/Please select button/i);
-      expect(linkElement).toBeInTheDocument();
-    });
-  
-    it('called onClick function porduces desired token', () => {
-      render(<Board />);
-      const test = screen.getByText('X');
-      fireEvent.click(test);
-      const linkElement = screen.getByText(/X has been clicked/i);
-      expect(linkElement).toBeInTheDocument();
-    });
-  
-    it('called onClick function porduces desired token', () => {
-      render(<Board />);
-      const test = screen.getByText('O');
-      fireEvent.click(test);
-      const linkElement = screen.getByText(/O has been clicked/i);
-      expect(linkElement).toBeInTheDocument();
-    });
-  
+  it('returns a blank board with nine cells', () => {
+    render(<Board />)
+    const cells = screen.getAllByText("_");
+    expect(cells.length).toEqual(9);
+  })
 
-    it('returns a blank board with nine cells', () => {
-      render(<Board />)
-      const cells = screen.getAllByText("_");
-      expect(cells.length).toEqual(7);
-    })
+  it('begins with a blank board', async () => {
+    render(<Board />)
+    const move = screen.getByTestId("game-board")
+    expect(move.textContent).toBe("_________")
   });
+
+  it('handles onClick event', async () => {
+    const mockCallBack = jest.fn()
+    render(<Board board={['X',"_",'O',"_",'X','O',"_",'X',"_"]} onClick={mockCallBack}/>)
+    fireEvent.click(screen.getByTestId("game-board"))
+
+    expect(mockCallBack).toBeCalled()
+  });
+
+});
