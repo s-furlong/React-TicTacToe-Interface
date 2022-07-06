@@ -15,12 +15,27 @@ describe('board', () => {
     expect(move.textContent).toBe("_________")
   });
 
-  it('handles onClick event', async () => {
-    const mockCallBack = jest.fn()
-    render(<Board board={['X',"_",'O',"_",'X','O',"_",'X',"_"]} onClick={mockCallBack}/>)
-    fireEvent.click(screen.getByTestId("game-board"))
+  it('after first click on board produces an X', () => {
+    render(<Board  />)
+    const cells = screen.getAllByRole('button')
+    const cellsToClick = cells.find(c => c.id === "cell_0")
+    expect(cellsToClick?.textContent).toBe("_")
 
-    expect(mockCallBack).toBeCalled()
+    fireEvent.click(cellsToClick)
+
+    expect(cellsToClick?.textContent).toBe("X")
   });
+
+  it('after second click the player token swithes to O', () => {
+    render(<Board  />)
+    const cells = screen.getAllByRole('button')
+    const cellsToClick = cells.find(c => c.id === "cell_0")
+    expect(cellsToClick?.textContent).toBe("_")
+
+    fireEvent.click(cellsToClick)
+    fireEvent.click(cellsToClick)
+
+    expect(cellsToClick?.textContent).toBe("O")
+  })
 
 });

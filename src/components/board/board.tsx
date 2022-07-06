@@ -23,7 +23,7 @@ export const Board = (props: boardProps) => {
     return(
     <div style={style} data-testid="game-board">
         {board.map((cellValue, i) => {
-            return <Cell id= {`cell_${i}`} key={i} value={cellValue} onClick={() => changeCell(i)} data-testid="game-square"/>
+            return <Cell id={`cell_${i}`} key={i} value={cellValue} onClick={() => changeCell(i)} />
         })}
     </div>
     )   
