@@ -8,7 +8,7 @@ type BoardProps = {message?: string}
 function Game(props: BoardProps) {
 
     return (
-        <div className="App" data-testid="X">
+        <div className="App" >
             <h1 >{ props.message || welcome }</h1>
             <Board />
         </div>

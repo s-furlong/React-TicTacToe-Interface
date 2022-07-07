@@ -1,7 +1,6 @@
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import {Board} from '../board/board'
-import * as tlreact from "@testing-library/react";
 
 
 describe('board', () => {
@@ -18,23 +17,36 @@ describe('board', () => {
   });
 
   it('after first click on board produces an X', () => {
-    tlreact.render(<Board />);
-    const cellsToClick = tlreact.screen.getByTestId('cell_0')
+    render(<Board />);
+    const firstToClick = screen.getByTestId('cell_0')
     
-    expect(cellsToClick.textContent).toBe("_")
-    fireEvent.click(cellsToClick)
+    expect(firstToClick.textContent).toBe("_")
+    fireEvent.click(firstToClick)
     
-    expect(cellsToClick?.textContent).toBe("X")
+    expect(firstToClick?.textContent).toBe("X")
   });
 
   it('after second click the player token swithes to O', () => {
-    tlreact.render(<Board />);
-    const cellsToClick = tlreact.screen.getByTestId('cell_0')
+    render(<Board />);
+    const firstToClick = screen.getByTestId('cell_0')
+    const secondToClick = screen.getByTestId('cell_1')
     
-    expect(cellsToClick.textContent).toBe("_")
-    fireEvent.click(cellsToClick)
-    fireEvent.click(cellsToClick)
+    expect(firstToClick.textContent).toBe("_")
+    fireEvent.click(firstToClick)
+    fireEvent.click(secondToClick)
 
-    expect(cellsToClick?.textContent).toBe("O")
+    expect(secondToClick?.textContent).toBe("O")
+  })
+
+  it('token remains the same after clicking on already occupied cell', () => {
+    render(<Board />);
+    const firstToClick = screen.getByTestId('cell_0')
+    const secondToClick = screen.getByTestId('cell_0')
+    
+    expect(firstToClick.textContent).toBe("_")
+    fireEvent.click(firstToClick)
+    fireEvent.click(secondToClick)
+
+    expect(secondToClick?.textContent).toBe("X")
   })
 });

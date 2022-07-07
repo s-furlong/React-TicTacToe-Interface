@@ -1,13 +1,8 @@
 import { Cell } from '../cell/cell';
 import {useState} from 'react';
 
-type boardProps = {
-    board?: Array<string>,
-    onClick?: (cell: number) => void; 
-}
-
-export const Board = (props: boardProps) => {
-    const gameBoard = props.board || ["_","_","_","_","_","_","_","_","_"]
+export const Board = () => {
+    const gameBoard = ["_","_","_","_","_","_","_","_","_"]
 
     const [board, setBoard] = useState<Array<string>>(gameBoard)
     const [playerTokenX, setPlayerTokenX] = useState(true);
@@ -15,9 +10,13 @@ export const Board = (props: boardProps) => {
     
     const changeCell = (i:number) => {
         const updateBoard = [...board];
-        updateBoard[i] = playerTokenX ? "X" : "O";
-        setBoard(updateBoard);
-        setPlayerTokenX(!playerTokenX);
+        if (updateBoard[i] === "_"){
+            updateBoard[i] = playerTokenX ? "X" : "O";
+            setBoard(updateBoard);
+            setPlayerTokenX(!playerTokenX);
+        } else {
+            updateBoard;
+        }    
     };
 
     return(
