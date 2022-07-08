@@ -6,17 +6,19 @@ export const Board = () => {
 
     const [board, setBoard] = useState<Array<string>>(gameBoard)
     const [playerTokenX, setPlayerTokenX] = useState(true);
-    
+    const [invalid, setInvalid] = useState("Select Square") 
     
     const changeCell = (i:number) => {
         const updateBoard = [...board];
-        if (updateBoard[i] === "_"){
+            if (updateBoard[i] === "_"){
             updateBoard[i] = playerTokenX ? "X" : "O";
+            setInvalid("Valid")
             setBoard(updateBoard);
             setPlayerTokenX(!playerTokenX);
         } else {
-            updateBoard;
-        }    
+            setInvalid("Invalid")
+        }
+        
     };
 
     return(
@@ -24,6 +26,9 @@ export const Board = () => {
         {board.map((cellValue, i) => {
             return <Cell id={`cell_${i}`} key={i} value={cellValue} onClick={() => changeCell(i)} />
         })}
+        <div data-testid="checker">
+            Checker: {invalid}
+        </div>
     </div>
     )   
 }
