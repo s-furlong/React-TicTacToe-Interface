@@ -13,7 +13,7 @@ describe('board', () => {
   it('begins with a blank board', async () => {
     render(<Board />)
     const move = screen.getByTestId("game-board")
-    expect(move.textContent).toBe("_________")
+    expect(move.textContent).not.toBe("X")
   });
 
   it('after first click on board produces an X', () => {
@@ -38,15 +38,40 @@ describe('board', () => {
     expect(secondToClick?.textContent).toBe("O")
   })
 
-  it('token remains the same after clicking on already occupied cell', () => {
+  it('does not alter the token if it clicked twice', () => {
     render(<Board />);
     const firstToClick = screen.getByTestId('cell_0')
-    const secondToClick = screen.getByTestId('cell_0')
     
     expect(firstToClick.textContent).toBe("_")
     fireEvent.click(firstToClick)
+    fireEvent.click(firstToClick)
+
+    expect(firstToClick?.textContent).toBe("X")
+  })
+
+  it('invalidates the move is the is occupied', () => {
+    render(<Board />);
+    const firstToClick = screen.getByTestId('cell_0')
+    const validCheck = screen.getByTestId("checker")
+    
+    expect(validCheck.textContent).toBe("Checker: Select Square")
+    fireEvent.click(firstToClick)
+    fireEvent.click(firstToClick)
+
+    expect(validCheck?.textContent).toBe("Checker: Invalid")
+  })
+
+  it('validates the move is the is occupied', () => {
+    render(<Board />);
+    const firstToClick = screen.getByTestId('cell_0')
+    const secondToClick = screen.getByTestId('cell_1')
+    const validCheck = screen.getByTestId("checker")
+
+    expect(validCheck.textContent).toBe("Checker: Select Square")
+
+    fireEvent.click(firstToClick)
     fireEvent.click(secondToClick)
 
-    expect(secondToClick?.textContent).toBe("X")
+    expect(validCheck?.textContent).toBe("Checker: Valid")
   })
 });
